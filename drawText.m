@@ -25,38 +25,41 @@ Screen('Preference', 'SkipSyncTests', 2 );
 fontSize = 20;
 
 try
-    % Choosing the display with the highest dislay number is
+    % Choosing the display with the highest display number is
     % a best guess about where you want the stimulus displayed.
     screens=Screen('Screens');
     screenNumber=max(screens);
     w=Screen('OpenWindow', screenNumber);
     Screen('FillRect', w,[0,0,0,255]);
-    Screen('Flip',w)
     Screen('TextFont',w, 'Arial');
     Screen('TextSize',w, fontSize);
     Screen('TextStyle', w, 1);
+    
+    Screen('TextSize', w, 30);
+    Screen('DrawText', w, 'Hit any key to begin.', 100, 300, [255, 100, 0, 255]);
+    Screen('Flip',w)
+    
+    KbWait;
     
     % Get the width and height of the primary screen. If a secondary screen
     % is being used for testing, this will need to be changed (TODO)
     [width,height]=Screen('WindowSize',0);
     
-    
     for i = 1:length(s)
         
         [nx, ny, bbox] = DrawFormattedText(w, s{i}, 'center', 'center',[255, 255, 255, 255]);
         Screen('Flip',w);
+        
         [trialResults,press] = PressTime;
 
         times(i) = trialResults;
         
         if press ~= inf
             keys(i) = KbName(press);
-        end
-        % pause(1);
-        
+        end  
     end
     
-    Screen('TextFont', w, 'Times');
+    %Screen('TextFont', w, 'Arial');
     Screen('TextSize', w, 30);
     Screen('DrawText', w, 'Hit any key to exit.', 100, 300, [255, 100, 0, 255]);
     Screen('Flip',w);
@@ -75,6 +78,9 @@ Screen('Preference', 'SkipSyncTests', 0);
 
 return
 
+% This routine is run immediately after the next word is displayed. It
+% returns the key that is pressed and the amount of time it takes for the
+% key to be pressed
 function [pt,key] = PressTime()
 
 pt = inf;
