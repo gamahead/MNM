@@ -39,6 +39,11 @@ testWords = {'test1','test2','test3','test4'};
 % already have a scheme in their lab 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Make sure there is a 'Data' folder
+if exist('Dada','file') ~= 7
+    system('mkdir Data');
+end
+
 c = {'Times' 'Keys'; times keys}; 
 
 dataNum = 0;
