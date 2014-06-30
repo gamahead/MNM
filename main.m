@@ -44,7 +44,7 @@ if exist('Dada','file') ~= 7
     system('mkdir Data');
 end
 
-c = {'Times' 'Keys'; times keys}; 
+c = {'Subject' 'Trial' 'Stimword' 'Response' 'RT'}; 
 
 dataNum = 0;
 idString = [subject,'-',date,'.csv'];
@@ -58,7 +58,10 @@ end
 
 fid = fopen(['Data/',idString],'w');
 
-fprintf(fid,'%s, %s\n',c{1,:});
+for i = 1:length(c)
+    fprintf(fid,'%s,',c{i});
+end
+fprintf(fid,'\n');
 
 % Handle and output data
 
@@ -70,10 +73,12 @@ for i = 1:length(times)
         keys(i) = 63;
     end
     
-    % Output time and key pressed
-    fprintf(fid,'%f,',times(i));
-    fprintf(fid,'%s\n',keys(i));
-    
+    fprintf(fid,'%s,',subject);
+    fprintf(fid,'%f,',1);
+    fprintf(fid,'%s,',testWords{i});
+    fprintf(fid,'%s,',keys(i));
+    fprintf(fid,'%f\n',times(i));
+   
 end
 
 fclose(fid);

@@ -47,6 +47,11 @@ try
     
     for i = 1:length(s)
         
+        pause(1);
+        Screen('DrawText', w, 'Me', 100, 100, [255, 255, 255, 255]);
+        Screen('DrawText', w, 'Not Me', 100, 100, [255, 255, 255, 255]);
+        [nx, ny, bbox] = DrawFormattedText(w, 'Me', 'left', 'center',[255, 255, 255, 255]);
+        [nx, ny, bbox] = DrawFormattedText(w, s{i}, 'center', 'center',[255, 255, 255, 255]);
         [nx, ny, bbox] = DrawFormattedText(w, s{i}, 'center', 'center',[255, 255, 255, 255]);
         Screen('Flip',w);
         
@@ -90,19 +95,24 @@ startSecs = GetSecs;
 while 1
 	[ keyIsDown, timeSecs, keyCode ] = KbCheck;
     
+    % This pause is meant to prevent this while loop from eating up the
+    % processor. 
+    pause(.001)
+    
     % Test to see if the word has been up for over a second; Break if yes
-    if ((GetSecs - startSecs) > 1.0)
-        break;
-    end
+%     if ((GetSecs - startSecs) > 1.0)
+%         break;
+%     end
     
 	if keyIsDown && (pt == Inf)
         pt = timeSecs - startSecs;
         key = KbName(keyCode);
+        while KbCheck; end
         
+        break;
         % If the user holds down a key, KbCheck will report multiple events.
         % To condense multiple 'keyDown' events into a single event, we wait until all
         % keys have been released.
-        while KbCheck; end
 	end
 end
 
