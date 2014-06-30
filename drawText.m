@@ -48,10 +48,9 @@ try
     for i = 1:length(s)
         
         pause(1);
-        Screen('DrawText', w, 'Me', 100, 100, [255, 255, 255, 255]);
-        Screen('DrawText', w, 'Not Me', 100, 100, [255, 255, 255, 255]);
-        [nx, ny, bbox] = DrawFormattedText(w, 'Me', 'left', 'center',[255, 255, 255, 255]);
-        [nx, ny, bbox] = DrawFormattedText(w, s{i}, 'center', 'center',[255, 255, 255, 255]);
+
+        [nx, ny, bbox] = DrawFormattedText(w, 'Me', 'left',50,[255, 255, 255, 255]);
+        [nx, ny, bbox] = DrawFormattedText(w, 'Not Me', 'right',50,[255, 255, 255, 255]);
         [nx, ny, bbox] = DrawFormattedText(w, s{i}, 'center', 'center',[255, 255, 255, 255]);
         Screen('Flip',w);
         

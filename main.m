@@ -1,5 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This is the main script that is used for starting the experiment
+%
+% TODO: Fix Data folder construction; Make sure text is appropriately
+% aligned; 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 inpt = inputdlg('Subject ID: ','MNM');
@@ -49,10 +52,11 @@ c = {'Subject' 'Trial' 'Stimword' 'Response' 'RT'};
 dataNum = 0;
 idString = [subject,'-',date,'.csv'];
 
+
 % Check to see if there is already a data file with the same name and
 % change accordingly until there is not
 while exist(['Data/',idString],'file') == 2
-    idString = [subject,num2str(dataNum),'-',date,'.csv'];
+    idString = [subject,'-',date,'_',num2str(dataNum),'.csv'];
     dataNum = dataNum + 1;
 end
 
