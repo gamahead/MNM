@@ -43,7 +43,7 @@ testWords = {'test1','test2','test3','test4'};
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Make sure there is a 'Data' folder
-if exist('Dada','file') ~= 7
+if exist('Data','file') ~= 7
     system('mkdir Data');
 end
 
