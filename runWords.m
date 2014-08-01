@@ -23,32 +23,25 @@ fontSize = 20;
 try
     
     Screen('FillRect', w,[0,0,0,255]);
-    Screen('TextFont',w, 'Arial');
-    Screen('TextSize',w, fontSize);
     Screen('TextStyle', w, 1);
-    
-    Screen('TextSize', w, 30);
-    
+    Screen('TextFont', w, 'times');
+    Screen('TextSize', w, 20);
     if prelim == 1
-        Screen('TextSize', w, 10);
 
-        text = ['Before the experiment begins, you will complete 4\n'...
-            ,'training trials to get yourself acclimated to the task\n'...
-            ,'Press the z key if the characteristic displayed in the center\n'...
-            ,'of the screen is representative of you, and press the ? key if\n'...
-            ,'it does not represent you\n\n'...
+        text = ['Before the experiment begins, you will complete 4 '...
+            ,'training trials to get yourself acclimated to the task\n\n'...
+            ,'Press the z key if the characteristic displayed in the center '...
+            ,'of the screen is representative of you\n\n Press the ? key if '...
+            ,'it does not represent you\n\n\n\n\n\n'...
             ,'Press any key to continue'];
-    else
-        text = ['Press any key to continue to the experiment'];
-    end
-    
-    Screen('TextSize', w, 30);
+        
+        [nx, ny, bbox] = DrawFormattedText(w, text,'center',50,[255, 255, 255, 255]);
+        % Screen('DrawText', w, text, 100, 300, [255, 100, 0, 255]);
+        Screen('Flip',w)
+        KbWait;
+        pause(1);
 
-    [nx, ny, bbox] = DrawFormattedText(w, text,'center',50,[255, 255, 255, 255]);
-    % Screen('DrawText', w, text, 100, 300, [255, 100, 0, 255]);
-    Screen('Flip',w)
-    
-    KbWait;
+    end
     
     % Get the width and height of the primary screen. If a secondary screen
     % is being used for testing, this will need to be changed (TODO)
@@ -57,6 +50,8 @@ try
     for i = 1:length(s)
         
         pause(1);
+        Screen('TextFont', w, 'arial');
+        Screen('TextSize', w, 30);
 
         [nx, ny, bbox] = DrawFormattedText(w, 'Me', 'left',50,[255, 255, 255, 255]);
         [nx, ny, bbox] = DrawFormattedText(w, 'Not Me', 'right',50,[255, 255, 255, 255]);
@@ -72,18 +67,18 @@ try
         end  
     end
     
-    %Screen('TextFont', w, 'Arial');
-    Screen('TextSize', w, 30);
+    Screen('TextFont', w, 'times');
+    Screen('TextSize', w, 20);
     
     if prelim == 0
-        Screen('DrawText', w, 'Hit any key to exit.', 100, 300, [255, 100, 0, 255]);
+        [nx, ny, bbox] = DrawFormattedText(w,'Finished - Press any key to exit.','center',50,[255, 255, 255, 255]);
     else
-        Screen('DrawText', w, 'Training session over - Press any key to continue', 100, 300, [255, 100, 0, 255]);
+        [nx, ny, bbox] = DrawFormattedText(w,'Training session over - Press any key to continue','center',50,[255, 255, 255, 255]);
     end
+    
+    pause(1);
     Screen('Flip',w);
-    pause(1);
     KbWait;
-    pause(1);
     
     if prelim == 0
         Screen('CloseAll');
