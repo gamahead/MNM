@@ -5,8 +5,26 @@
 % aligned; 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Get Subject's ID
 inpt = inputdlg('Subject ID: ','MNM');
 subject = inpt{1};
+
+% Setting up the screen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Suppress Warnings
+oldEnableFlag = Screen('Preference', 'SuppressAllWarnings', 1);
+
+% Skip the graphics tests - This should be set back to default for
+% experimenting
+Screen('Preference', 'SkipSyncTests', 2 );
+
+% Choosing the display with the highest display number is
+% a best guess about where you want the stimulus displayed.
+screens=Screen('Screens');
+screenNumber=max(screens);
+w=Screen('OpenWindow', screenNumber);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Read in the list of words from the word list
 rawWords = textread('wordlist.txt','%s');
@@ -33,10 +51,10 @@ testWords = {'test1','test2','test3','test4'};
 KbName('UnifyKeyNames');
  
 % Run the testWords in the prelim - Passing 1 runs the prelim
-[times,keys] = runWords(testWords,1);
+[times,keys] = runWords(testWords,1,w);
 
 % Run the real words in the main experiment - Passing 0 runs the experiment
-[times,keys] = runWords(testWords,0);
+[times,keys] = runWords(testWords,0,w);
 
 
 % Write out the results
@@ -91,3 +109,9 @@ for i = 1:length(times)
 end
 
 fclose(fid);
+
+% Restoring Screen Defaults %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Restore default warning message settings
+Screen('Preference','SuppressAllWarnings',oldEnableFlag);
+Screen('Preference', 'SkipSyncTests', 0);

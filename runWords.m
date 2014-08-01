@@ -8,35 +8,44 @@
 % 6/16/14   xxx     JOSH ROSE: Modifying the simple DrawSomeText demo for a
 % module that draws an input string to the screen
 
+% Args: runWords([list of words],[1 if prelim; 0 if experiment],[screen
+% number]);
 
-function [times,keys] = runWords(s,prelim)
+function [times,keys] = runWords(s,prelim,w)
 
 % Preallocate memory for the times array; This array stores the keypress
 % times for each trial
 times = zeros(1,length(s));
 keys = zeros(1,length(s));
 
-% Suppress Warnings
-oldEnableFlag = Screen('Preference', 'SuppressAllWarnings', 1);
-
-% Skip the graphics tests - This should be set back to default for
-% experimenting
-Screen('Preference', 'SkipSyncTests', 2 );
 fontSize = 20;
 
 try
-    % Choosing the display with the highest display number is
-    % a best guess about where you want the stimulus displayed.
-    screens=Screen('Screens');
-    screenNumber=max(screens);
-    w=Screen('OpenWindow', screenNumber);
+    
     Screen('FillRect', w,[0,0,0,255]);
     Screen('TextFont',w, 'Arial');
     Screen('TextSize',w, fontSize);
     Screen('TextStyle', w, 1);
     
     Screen('TextSize', w, 30);
-    Screen('DrawText', w, 'Hit any key to begin.', 100, 300, [255, 100, 0, 255]);
+    
+    if prelim == 1
+        Screen('TextSize', w, 10);
+
+        text = ['Before the experiment begins, you will complete 4\n'...
+            ,'training trials to get yourself acclimated to the task\n'...
+            ,'Press the z key if the characteristic displayed in the center\n'...
+            ,'of the screen is representative of you, and press the ? key if\n'...
+            ,'it does not represent you\n\n'...
+            ,'Press any key to continue'];
+    else
+        text = ['Press any key to continue to the experiment'];
+    end
+    
+    Screen('TextSize', w, 30);
+
+    [nx, ny, bbox] = DrawFormattedText(w, text,'center',50,[255, 255, 255, 255]);
+    % Screen('DrawText', w, text, 100, 300, [255, 100, 0, 255]);
     Screen('Flip',w)
     
     KbWait;
@@ -69,10 +78,12 @@ try
     if prelim == 0
         Screen('DrawText', w, 'Hit any key to exit.', 100, 300, [255, 100, 0, 255]);
     else
-        Screen('DrawText', w, 'Prelim over', 100, 300, [255, 100, 0, 255]);
+        Screen('DrawText', w, 'Training session over - Press any key to continue', 100, 300, [255, 100, 0, 255]);
     end
     Screen('Flip',w);
+    pause(1);
     KbWait;
+    pause(1);
     
     if prelim == 0
         Screen('CloseAll');
@@ -84,10 +95,6 @@ catch
     Screen('CloseAll');
     psychrethrow(psychlasterror);
 end
-
-% Restore default warning message settings
-Screen('Preference','SuppressAllWarnings',oldEnableFlag);
-Screen('Preference', 'SkipSyncTests', 0);
 
 return
 
