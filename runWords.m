@@ -9,7 +9,7 @@
 % module that draws an input string to the screen
 
 
-function [times,keys] = drawText(s)
+function [times,keys] = runWords(s,prelim)
 
 % Preallocate memory for the times array; This array stores the keypress
 % times for each trial
@@ -65,10 +65,19 @@ try
     
     %Screen('TextFont', w, 'Arial');
     Screen('TextSize', w, 30);
-    Screen('DrawText', w, 'Hit any key to exit.', 100, 300, [255, 100, 0, 255]);
+    
+    if prelim == 0
+        Screen('DrawText', w, 'Hit any key to exit.', 100, 300, [255, 100, 0, 255]);
+    else
+        Screen('DrawText', w, 'Prelim over', 100, 300, [255, 100, 0, 255]);
+    end
     Screen('Flip',w);
     KbWait;
-    Screen('CloseAll');
+    
+    if prelim == 0
+        Screen('CloseAll');
+    end
+    
 catch
     % This "catch" section executes in case of an error in the "try" section
     % above.  Importantly, it closes the onscreen window if it's open.

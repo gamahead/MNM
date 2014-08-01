@@ -32,10 +32,10 @@ testWords = {'test1','test2','test3','test4'};
 
 KbName('UnifyKeyNames');
  
-% Run the testWords in the prelim - Passing 1 runs the prelim
+% Run the testWords in the prelim
 [times,keys] = runWords(testWords,1);
 
-% Run the real words in the main experiment - Passing 0 runs the experiment
+% Run the real words in the main experiment
 [times,keys] = runWords(testWords,0);
 
 
