@@ -38,6 +38,8 @@ for i = 1:size(rawWords)
     randWords2(i) = rawWords(indices2(i));
 end
 
+stims = [randWords1,randWords2];
+
 % These are the words used for the preliminary task; just change them to 
 % make them whatever you want them to be 
 testWords = {'test1','test2','test3','test4'};
@@ -54,7 +56,8 @@ KbName('UnifyKeyNames');
 [times,keys] = runWords(testWords,1,w);
 
 % Run the real words in the main experiment - Passing 0 runs the experiment
-[times,keys] = runWords(testWords,0,w);
+[times,keys] = runWords(stims,0,w);
+
 
 
 % Write out the results
@@ -102,7 +105,7 @@ for i = 1:length(times)
     
     fprintf(fid,'%s,',subject);
     fprintf(fid,'%f,',1);
-    fprintf(fid,'%s,',testWords{i});
+    fprintf(fid,'%s,', stims{i});
     fprintf(fid,'%s,',keys(i));
     fprintf(fid,'%f\n',times(i));
    
