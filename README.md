@@ -6,7 +6,7 @@ Me/Not-me Paradigm Psychology Experiment
 A simple matlab application for performing the me/not-me experiment with a given list of potential characteristics
 
 PsychToolbox install instructions for windows:
-===
+==
 
 1) Install subversion 32 bit: http://www.sliksvn.com/en/download
 
