@@ -22,3 +22,7 @@ PsychToolbox install instructions for windows:
 
 7) Then type "DownloadPsychtoolbox('C:\toolbox')"
 
+Running MNM:
+==
+
+Make sure you are in the MNM directory and simply type "main" at the matlab command line
