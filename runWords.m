@@ -102,7 +102,7 @@ pt = inf;
 key = inf;
 startSecs = GetSecs;
 
-while 1
+while (~strcmp(key,'z')) && (~strcmp(key,'/?'))
 	[ keyIsDown, timeSecs, keyCode ] = KbCheck;
     
     % This pause is meant to prevent this while loop from eating up the
@@ -114,17 +114,14 @@ while 1
 %         break;
 %     end
     
-	if keyIsDown && (pt == Inf)
+	if keyIsDown && (~strcmp(key,'z') && ~strcmp(key,'/?'))
         pt = timeSecs - startSecs;
         key = KbName(keyCode);
         while KbCheck; end
         
-        break;
+        %break;
         % If the user holds down a key, KbCheck will report multiple events.
         % To condense multiple 'keyDown' events into a single event, we wait until all
         % keys have been released.
-	end
+    end
 end
-
-
-
