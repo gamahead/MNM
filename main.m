@@ -9,6 +9,32 @@
 inpt = inputdlg('Subject ID: ','MNM');
 subject = inpt{1};
 
+% Make sure there is a 'Data' folder
+if exist('Data','file') ~= 7
+    system('mkdir Data');
+end
+
+c = {'Subject' 'Trial' 'Stimword' 'Response' 'RT'}; 
+
+dataNum = 0;
+idString = [subject,'-',date,'.csv'];
+
+
+% Check to see if there is already a data file with the same name and
+% change accordingly until there is not
+while exist(['Data/',idString],'file') == 2
+    idString = [subject,'-',date,'_',num2str(dataNum),'.csv'];
+    dataNum = dataNum + 1;
+end
+
+fid = fopen(['Data/',idString],'w');
+
+for i = 1:length(c)
+    fprintf(fid,'%s,',c{i});
+end
+fprintf(fid,'\n');
+
+
 % Setting up the screen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Suppress Warnings
@@ -53,63 +79,10 @@ testWords = {'test1','test2','test3','test4'};
 KbName('UnifyKeyNames');
  
 % Run the testWords in the prelim - Passing 1 runs the prelim
-[times,keys] = runWords(testWords,1,w);
+[times,keys] = runWords(testWords,1,w,fid,subject);
 
 % Run the real words in the main experiment - Passing 0 runs the experiment
-[times,keys] = runWords(stims,0,w);
-
-
-
-% Write out the results
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TODO: Find out what Linh wants the directory 
-% structure to look like and what she wants in the output - they probably 
-% already have a scheme in their lab 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Make sure there is a 'Data' folder
-if exist('Data','file') ~= 7
-    system('mkdir Data');
-end
-
-c = {'Subject' 'Trial' 'Stimword' 'Response' 'RT'}; 
-
-dataNum = 0;
-idString = [subject,'-',date,'.csv'];
-
-
-% Check to see if there is already a data file with the same name and
-% change accordingly until there is not
-while exist(['Data/',idString],'file') == 2
-    idString = [subject,'-',date,'_',num2str(dataNum),'.csv'];
-    dataNum = dataNum + 1;
-end
-
-fid = fopen(['Data/',idString],'w');
-
-for i = 1:length(c)
-    fprintf(fid,'%s,',c{i});
-end
-fprintf(fid,'\n');
-
-% Handle and output data
-
-for i = 1:length(times)
-    
-    % Start by changing the encoding for the question mark - PsychToolBox
-    % thinks /? = 191, but the Unicode encoding is 63
-    if keys(i) == 191
-        keys(i) = 63;
-    end
-    
-    fprintf(fid,'%s,',subject);
-    fprintf(fid,'%f,',1);
-    fprintf(fid,'%s,', stims{i});
-    fprintf(fid,'%s,',keys(i));
-    fprintf(fid,'%f\n',times(i));
-   
-end
+[times,keys] = runWords(stims,0,w,fid,subject);
 
 fclose(fid);
 

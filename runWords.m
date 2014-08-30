@@ -11,7 +11,7 @@
 % Args: runWords([list of words],[1 if prelim; 0 if experiment],[screen
 % number]);
 
-function [times,keys] = runWords(s,prelim,w)
+function [times,keys] = runWords(s,prelim,w,fid,subject)
 
 % Preallocate memory for the times array; This array stores the keypress
 % times for each trial
@@ -51,6 +51,12 @@ try
         
         pause(1);
         Screen('TextFont', w, 'arial');
+        Screen('TextSize', w, 50);
+        [nx, ny, bbox] = DrawFormattedText(w, '+', 'center', 'center',[255, 255, 255, 255]);
+        Screen('Flip',w);
+        pause(.5);
+        
+        Screen('TextFont', w, 'arial');
         Screen('TextSize', w, 30);
 
         [nx, ny, bbox] = DrawFormattedText(w, 'Me', 'left',50,[255, 255, 255, 255]);
@@ -59,12 +65,26 @@ try
         Screen('Flip',w);
         
         [trialResults,press] = PressTime;
-
-        times(i) = trialResults;
         
-        if press ~= inf
-            keys(i) = KbName(press);
-        end  
+        if prelim == 0
+            times(i) = trialResults;
+            
+            if press ~= inf
+                keys(i) = KbName(press);
+            end
+            
+            % Start output by changing the encoding for the question mark - PsychToolBox
+            % thinks /? = 191, but the Unicode encoding is 63
+            if keys(i) == 191
+                keys(i) = 63;
+            end
+            
+            fprintf(fid,'%s,',subject);
+            fprintf(fid,'%f,',i);
+            fprintf(fid,'%s,', s{i});
+            fprintf(fid,'%s,',keys(i));
+            fprintf(fid,'%f\n',times(i));
+        end
     end
     
     Screen('TextFont', w, 'times');
