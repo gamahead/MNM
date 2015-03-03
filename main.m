@@ -9,12 +9,14 @@
 inpt = inputdlg('Subject ID: ','MNM');
 subject = inpt{1};
 
+HideCursor;
+
 % Make sure there is a 'Data' folder
 if exist('Data','file') ~= 7
     system('mkdir Data');
 end
 
-c = {'Subject' 'Trial' 'Stimword' 'Response' 'RT'}; 
+c = {'Subject' 'Trial' 'Stimword' 'Response' 'Category' 'RT'}; 
 
 dataNum = 0;
 idString = [subject,'-',date,'.csv'];
@@ -68,7 +70,7 @@ stims = [randWords1,randWords2];
 
 % These are the words used for the preliminary task; just change them to 
 % make them whatever you want them to be 
-testWords = {'test1','test2','test3','test4'};
+testWords = {'talkative','helpful','quiet','romantic'};
 
 % Encodings for Keynames: z = 90; ?/ = 191; Unicode: z = 90, ? = 63
 
