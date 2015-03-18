@@ -11,7 +11,7 @@
 % Args: runWords([list of words],[1 if prelim; 0 if experiment],[screen
 % number]);
 
-function [times,keys] = runWords(s,prelim,w,fid,subject)
+function [times,keys] = runWords(s,prelim,w,fid,subject,condition)
 
 % Preallocate memory for the times array; This array stores the keypress
 % times for each trial
@@ -65,7 +65,7 @@ try
         Screen('FillRect',w, [255, 255, 255], r2);
         
         Screen('Flip',w);
-        pause(.1);
+        pause(.5);
         
         Screen('TextFont', w, 'arial');
         Screen('TextSize', w, 30);
@@ -94,6 +94,7 @@ try
             end
             
             fprintf(fid,'%s,',subject);
+            fprintf(fid,'%s,',condition);
             
             if i > halfsies
                 fprintf(fid,'%f,',2);

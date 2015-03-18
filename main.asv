@@ -11,10 +11,9 @@ dlg_title = 'MNM';
 num_lines = 1;
 def = {'',''};
 
-condition = '0';
+condition = 0;
 attempts = 0;
-inpt = {'',''};
-while ~(strcmp(condition,num2str(1)) || strcmp(condition,num2str(2)))
+while strcmp(condition,num2str(1)) || condition ~= num2str(2)
     if attempts > 0
         inpt = inputdlg(prompt,dlg_title,num_lines,{inpt{1},'Please enter 1 or 2'});
         condition = inpt{2};
