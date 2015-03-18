@@ -53,20 +53,28 @@ try
         pause(1);
         Screen('TextFont', w, 'arial');
         Screen('TextSize', w, 50);
-        [nx, ny, bbox] = DrawFormattedText(w, '+', 'center', 'center',[255, 255, 255, 255]);
+        %[nx, ny, bbox] = DrawFormattedText(w, '+', 'center', 'center',[255, 255, 255, 255]);
+        
+        % Length and width of the rectangles used in the fixation cross
+        rlength = 25;
+        rwidth = 2;
+
+        r1 = [width/2-rlength/2 height/2-rwidth/2 width/2+rlength/2 height/2+rwidth/2];
+        r2 = [width/2-rwidth/2 height/2-rlength/2 width/2+rwidth/2 height/2+rlength/2];
+        Screen('FillRect',w, [255, 255, 255], r1);
+        Screen('FillRect',w, [255, 255, 255], r2);
+        
         Screen('Flip',w);
-        pause(.5);
+        pause(.1);
         
         Screen('TextFont', w, 'arial');
         Screen('TextSize', w, 30);
         
         % Draw the word to the screen. The spaces before 'Me' and after
         % 'Not Me' are a janky fix for pushing the words toward the center
-        [nx, ny, bbox] = DrawFormattedText(w, '          Me','left',200,[255, 255, 255, 255]);
-        [nx, ny, bbox] = DrawFormattedText(w, 'Not Me          ', 'right',200,[255, 255, 255, 255]);
+        [nx, ny, bbox] = DrawFormattedText(w, '          Me','left',140,[255, 255, 255, 255]);
+        [nx, ny, bbox] = DrawFormattedText(w, 'Not Me          ', 'right',140,[255, 255, 255, 255]);
         [nx, ny, bbox] = DrawFormattedText(w, s{i}, 'center', 'center',[255, 255, 255, 255]);
-        r1 = [0 0 100 100];
-        Screen('FillRect',w, [255, 255, 255], r1, 10);
         Screen('Flip',w);
         
         [trialResults,press] = PressTime;
@@ -109,8 +117,8 @@ try
         
         TestText = ['The training session is over. The experiment will begin next.\n\n'...
             ,'Instructions: Press the z key if the characteristic displayed in the center '...
-            ,'of the screen is representative of you\n\n Press the / key if '...
-            ,'it does not represent you\n\n\n\n\n\n'...
+            ,'of the screen is representative of you\n\n Press the / key if the characteristic displayed in the center '...
+            ,'of the screen is not representative of you\n\n\n\n\n\n'...
             ,'Press any key to continue'];
         
         [nx, ny, bbox] = DrawFormattedText(w,TestText,'center',50,[255, 255, 255, 255]);

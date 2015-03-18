@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This is the main script that is used for starting the experiment
 %
 % TODO: Fix Data folder construction; Make sure text is appropriately
@@ -6,9 +6,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Get Subject's ID
-inpt = inputdlg('Subject ID: ','MNM');
-subject = inpt{1};
-
+prompt = {'Subject ID: ','Condition (1 or 2): '};
+dlg_title = 'MNM';
+num_lines = 1;
+def = {'',''};
+inpt = inputdlg(prompt,dlg_title,num_lines,def);
+subject = inpt{1}
+condition = inpt{2}
 HideCursor;
 
 % Make sure there is a 'Data' folder
