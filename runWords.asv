@@ -60,13 +60,10 @@ try
         Screen('TextFont', w, 'arial');
         Screen('TextSize', w, 30);
         
-        % Draw the word to the screen. The spaces before 'Me' and after
-        % 'Not Me' are a janky fix for pushing the words toward the center
+        % Draw the words to the screen. The 
         [nx, ny, bbox] = DrawFormattedText(w, '          Me','left',200,[255, 255, 255, 255]);
         [nx, ny, bbox] = DrawFormattedText(w, 'Not Me          ', 'right',200,[255, 255, 255, 255]);
         [nx, ny, bbox] = DrawFormattedText(w, s{i}, 'center', 'center',[255, 255, 255, 255]);
-        r1 = [0 0 100 100];
-        Screen('FillRect',w, [255, 255, 255], r1, 10);
         Screen('Flip',w);
         
         [trialResults,press] = PressTime;
