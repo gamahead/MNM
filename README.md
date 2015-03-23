@@ -18,11 +18,23 @@ PsychToolbox install instructions for windows:
 
 5) Open Matlab
 
-6) At the command line, type: "cd C:\toolbox"
-
-7) Then type "DownloadPsychtoolbox('C:\toolbox')"
+6) At the command line, type: 
+```matlab
+>> cd C:\toolbox
+>> DownloadPsychtoolbox('C:\toolbox')
+```
 
 Running MNM:
-==
+===
 
 Make sure you are in the MNM directory and simply type "main" at the matlab command line
+
+### Specific instructions for the Jamieson Lab:
+
+type 
+```matlab
+>> cd C:\Users\jamiesonlab\Documents\GitHub\MNM
+>> main
+```
+
+The program should then display a popup dialog asking for the subject's id and condition
