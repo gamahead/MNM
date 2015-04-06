@@ -164,7 +164,7 @@ pt = inf;
 key = inf;
 startSecs = GetSecs;
 
-while (~strcmp(key,'z')) && (~strcmp(key,'/?'))
+while (~strcmp(key,'z')) & (~strcmp(key,'/?'))
     [ keyIsDown, timeSecs, keyCode ] = KbCheck;
     
     % This pause is meant to prevent this while loop from eating up the
@@ -176,7 +176,7 @@ while (~strcmp(key,'z')) && (~strcmp(key,'/?'))
 %         break;
 %     end
     
-    if keyIsDown && (~strcmp(key,'z') && ~strcmp(key,'/?'))
+    if keyIsDown & (~strcmp(key,'z') & ~strcmp(key,'/?'))
         pt = timeSecs - startSecs;
         key = KbName(keyCode);
         while KbCheck; end

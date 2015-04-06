@@ -1,0 +1,13 @@
+Subject,Condition,Trial,Stimword,Response,Category,RT,
+001,1,1.000000,Frugal,/,low,1.929890
+001,1,1.000000,Unsophisticated,/,low,2.224582
+001,1,1.000000,Well-off,/,high,1.937703
+001,1,1.000000,Uncultivated,/,low,1.645346
+001,1,1.000000,Uncultured,/,low,3.248926
+001,1,1.000000,Cultured,Z,high,1.580720
+001,1,1.000000,Lonely,/,neutral,1.335168
+001,1,1.000000,Cosmopolitan,Z,high,2.052387
+001,1,1.000000,Individualistic,Z,neutral,2.825637
+001,1,1.000000,Privileged,Z,high,2.250240
+001,1,1.000000,Patient,Z,neutral,0.940784
+001,1,1.000000,Bossy,Z,high,1.334898
